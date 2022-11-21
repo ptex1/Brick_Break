@@ -1,0 +1,77 @@
+import pygame
+
+pygame.init()
+
+WIDTH, HEIGHT = 800, 600
+win = pygame.display.set_mode((WIDTH, HEIGHT))
+pygame.display.set_caption("Brick Breaker")
+
+FPS = 60
+BALL_RADIUS = 10
+
+
+class Ball:
+    VEL = 5
+
+    def __init__(self, x, y, radius, color):
+        self.x = x
+        self.y = y
+        self.radius = radius
+        self.color = color
+        self.x_vel = 0
+        self.y_vel = -self.VEL
+
+    def move(self):
+        self.x += self.x_vel
+        self.y += self.y_vel
+
+    def set_vel(self, x_vel, y_vel):
+        self.x_vel = x_vel
+        self.y_vel = y_vel
+
+    def draw(self, win):
+        pygame.draw.circle(win, self.color, (self.x, self.y), self.radius)
+
+def draw(win, ball, ball2):
+    win.fill("white")
+    ball.draw(win)
+    ball2.draw(win)
+
+    pygame.display.update()
+
+def ball_collision(ball):
+    if ball.x - BALL_RADIUS <= 0 or ball.x + BALL_RADIUS >= WIDTH:
+        ball.set_vel(ball.x_vel * -1, ball.y_vel)
+    if ball.y + BALL_RADIUS >= HEIGHT or ball.y - BALL_RADIUS <= 0:
+        ball.set_vel(ball.x_vel, ball.y_vel * -1)
+
+
+def main():
+    clock = pygame.time.Clock()
+
+    ball = Ball(WIDTH/2, HEIGHT/2, BALL_RADIUS, "black")
+
+    ball2 = Ball(WIDTH/2, HEIGHT/2, BALL_RADIUS, "red")
+
+    run = True
+    while run:
+        clock.tick(FPS)
+
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                run = False
+                break
+
+        keys = pygame.key.get_pressed()
+
+        ball.move()
+        ball_collision(ball)
+
+        draw(win, ball, ball2)
+
+    pygame.quit()
+    quit()
+
+
+if __name__ == "__main__":
+    main()
