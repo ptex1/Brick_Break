@@ -20,3 +20,11 @@ class Bola(pygame.sprite.Sprite):
         self.velocidade = [randint(3,5),randint(-6,6)]
         
         self.rect = self.image.get_rect()
+    
+    def update(self):
+        self.rect.x += self.velocidade[0]
+        self.rect.y += self.velocidade[1]
+          
+    def bounce(self):
+        self.velocidade[0] = -self.velocidade[0]
+        self.velocidade[1] = randint(-6,6)
