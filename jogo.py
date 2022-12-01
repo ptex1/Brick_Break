@@ -110,6 +110,8 @@ while continuar :
       bola.rect.x -= bola.velocidade[0]
       bola.rect.y -= bola.velocidade[1]
       bola.bounce()
+      if bola.velocidade[1] < 2:
+        bola.bounce()
  
     #Checa se a bola colidiu com algum dos blocos
     lista_col_blocos = pygame.sprite.spritecollide(bola,todos_blocos,False)
