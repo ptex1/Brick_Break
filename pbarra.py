@@ -16,3 +16,15 @@ class Barra(pygame.sprite.Sprite):
         # Desenha a barra
         pygame.draw.rect(self.image, color, [0, 0, width, height])
         self.rect = self.image.get_rect()
+
+    def moveesquerda(self, pixels):
+        self.rect.x -= pixels
+	    #Não permite passar dos limites da tela
+        if self.rect.x < 0:
+          self.rect.x = 0
+ 
+    def movedireita(self, pixels):
+        self.rect.x += pixels
+        #Não permite passar dos limites da tela
+        if self.rect.x > 700:
+          self.rect.x = 700
