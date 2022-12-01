@@ -28,3 +28,5 @@ class Bola(pygame.sprite.Sprite):
     def bounce(self):
         self.velocidade[0] = -self.velocidade[0]
         self.velocidade[1] = randint(-6,6)
+        while self.velocidade[1] == 0:
+            self.velocidade[1] = randint(-8,8)
